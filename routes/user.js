@@ -55,9 +55,13 @@ userRouter.get("/purchases", userMiddleware, async function(req, res) {
 
     const purchases = await purchaseModel.find({
         userId
+    });
+    const coursesData = await purchaseModel.find({
+        _id:{$in: purchases.map( x => x.courseId)}
     })
     res.json({
-        purchases
+        purchases,
+        coursesData
     })
 })
 
